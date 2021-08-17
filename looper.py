@@ -2,7 +2,8 @@
 
 import RPi.GPIO as GPIO
 from mfrc522 import SimpleMFRC522
-
+from pydrive.auth import GoogleAuth
+from pydrive.drive import GoogleDrive
 
 from datetime import date, datetime
 
@@ -26,3 +27,11 @@ while i < 4:
 
 file.close()
 GPIO.cleanup()
+
+gauth = GoogleAuth()           
+drive = GoogleDrive(gauth)
+
+gfile = drive.CreateFile({'parents': [{'id':'1Xp7xRkAywWTI6KmsT2l6_yeBMRtjUcrW'}]})
+
+gfile.SetContentFile(filename)
+gfile.Upload()
