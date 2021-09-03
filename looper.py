@@ -17,13 +17,17 @@ print(d)
 filename = d+".txt"
 file = open(filename,"w")
 i = 0
-while i < 4:
-    id, text = reader.read()
-    now = datetime.now()
-    stri = now.strftime("%H:%M:%S")
-    writ = stri + " " + text + "\n"
-    file.write(writ)
-    i = i +1
+GPIO.setup(10,GPIO.IN)
+while True:
+	if(GPIO.input(10)==GPIO.HIGH):
+    	id, text = reader.read()
+    	now = datetime.now()
+    	stri = now.strftime("%H:%M:%S")
+    	writ = stri + " " + text + "\n"
+    	file.write(writ)
+    	i = i +1
+    else:
+    	break
 
 file.close()
 GPIO.cleanup()
